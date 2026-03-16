@@ -1,10 +1,12 @@
 import express from 'express';
 import fs from 'fs'; //permite trabajar con file systems
 import bodyParser from 'body-parser'; //middleware para parsear el body de las solicitudes POST y PUT
+import cors from 'cors'; //middleware para habilitar CORS (Cross-Origin Resource Sharing)
 
 const app = express();
 app.use(bodyParser.json());
 
+app.use(cors());
 
 const readData = () => {
     try {
