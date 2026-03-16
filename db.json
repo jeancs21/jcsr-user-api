@@ -1,0 +1,52 @@
+{
+    "users": [
+        {
+            "id": 1,
+            "name": "Juan Pérez",
+            "email": "juan.perez@example.com",
+            "phone": "809-555-0101",
+            "company": "Tech Solutions RD",
+            "city": "Santo Domingo"
+        },
+        {
+            "id": 2,
+            "name": "María Rodríguez",
+            "email": "m.rodriguez@innovate.ch",
+            "phone": "829-555-0202",
+            "company": "Innovate Check",
+            "city": "Santiago"
+        },
+        {
+            "id": 3,
+            "name": "Carlos Gómez",
+            "email": "carlos.g@fintech.do",
+            "phone": "849-555-0303",
+            "company": "FinTech Dominicana",
+            "city": "La Romana"
+        },
+        {
+            "id": 4,
+            "name": "Ana Martínez",
+            "email": "ana.mtz@services.com",
+            "phone": "809-555-0404",
+            "company": "Global Services",
+            "city": "Puerto Plata"
+        },
+        {
+            "id": 5,
+            "name": "Luis Sánchez",
+            "email": "l.sanchez@buildit.com",
+            "phone": "829-555-0505",
+            "company": "BuildIt Corp",
+            "city": "Bávaro"
+        },
+        {
+            "id": 6,
+            "name": "Jean Carlos Sánchez",
+            "email": "jean.sanchez@buildit.com",
+            "phone": "829-555-6897",
+            "company": "BuildIt Corp",
+            "city": "Bávaro"
+        }
+    ]
+}
