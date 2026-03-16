@@ -57,36 +57,6 @@ app.post('/users', (req, res) => {
     res.status(201).json(newUser);
 });
 
-app.put('/users/:id', (req, res) => {
-    const data = readData();
-    const body = req.body;
-    const id = parseInt(req.params.id);
-    const userIndex = data.users.findIndex(user => user.id === id);
-    if (userIndex !== -1) {
-        data.users[userIndex] = {
-            ...data.users[userIndex],
-            ...body
-        };
-        writeData(data);
-        res.json(data.users[userIndex]);
-    } else {
-        res.status(404).json({ message: "User not found" });
-    }
-});
-
-app.delete('/users/:id', (req, res) => {
-    const data = readData();
-    const id = parseInt(req.params.id);
-    const userIndex = data.users.findIndex(user => user.id === id);
-    if (userIndex !== -1) {
-        const deletedUser = data.users.splice(userIndex, 1);
-        writeData(data);
-        res.json(deletedUser[0]);
-    } else {
-        res.status(404).json({ message: "User not found" });
-    }
-})
-
 app.listen(3000, () => {
     console.log('Server is running on port 3000');
 });
