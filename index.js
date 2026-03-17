@@ -69,9 +69,7 @@ app.get('/api/users', (req, res) => {
         const searchText = normalizeStr(search);
         const filteredUsers = data.users.filter(user =>
             normalizeStr(user.name).includes(searchText) ||
-            normalizeStr(user.email).includes(searchText) ||
-            normalizeStr(user.company).includes(searchText) ||
-            normalizeStr(user.city).includes(searchText)
+            normalizeStr(user.email).includes(searchText)
         );
         return res.json(filteredUsers);
     }
@@ -79,7 +77,7 @@ app.get('/api/users', (req, res) => {
     if (city) {
         const cityFilter = normalizeStr(city);
         const filteredUsers = data.users.filter(user =>
-            normalizeStr(user.city) === cityFilter
+            normalizeStr(user.city).includes(cityFilter)
         );
         return res.json(filteredUsers);
     }
@@ -87,11 +85,10 @@ app.get('/api/users', (req, res) => {
     if (company) {
         const companyFilter = normalizeStr(company);
         const filteredUsers = data.users.filter(user =>
-            normalizeStr(user.company) === companyFilter
+            normalizeStr(user.company).includes(companyFilter)
         );
         return res.json(filteredUsers);
     }
-
     res.json(data.users);
 });
 
