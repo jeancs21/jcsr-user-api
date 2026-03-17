@@ -7,10 +7,8 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-// Rutas
 app.use('/', userRoutes);
 
-// Ruta raíz
 app.get('/', (req, res) => {
     res.send("Welcome")
 });
