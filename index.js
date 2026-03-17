@@ -35,34 +35,6 @@ app.get('/', (req, res) => {
 
 app.get('/users', (req, res) => {
     const data = readData();
-    res.json(data.users);
-});
-
-app.get('/users/:id', (req, res) => {
-    const data = readData();
-    const id = parseInt(req.params.id);
-    const user = data.users.find(user => user.id === id);
-    if (user) {
-        res.json(user);
-    } else {
-        res.status(404).json({ message: "User not found" });
-    }
-});
-
-app.post('/users', (req, res) => {
-    const data = readData();
-    const body = req.body;
-    const newUser = {
-        id: data.users.length + 1,
-        ...body
-    };
-    data.users.push(newUser);
-    writeData(data);
-    res.status(201).json(newUser);
-});
-
-app.get('/users', (req, res) => {
-    const data = readData();
     const { search, city, company } = req.query;
 
     if (search) {
@@ -90,6 +62,29 @@ app.get('/users', (req, res) => {
         return res.json(filteredUsers);
     }
     res.json(data.users);
+});
+
+app.get('/users/:id', (req, res) => {
+    const data = readData();
+    const id = parseInt(req.params.id);
+    const user = data.users.find(user => user.id === id);
+    if (user) {
+        res.json(user);
+    } else {
+        res.status(404).json({ message: "User not found" });
+    }
+});
+
+app.post('/users', (req, res) => {
+    const data = readData();
+    const body = req.body;
+    const newUser = {
+        id: data.users.length + 1,
+        ...body
+    };
+    data.users.push(newUser);
+    writeData(data);
+    res.status(201).json(newUser);
 });
 
 app.listen(3000, () => {
