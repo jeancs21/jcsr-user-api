@@ -61,7 +61,7 @@ app.post('/users', (req, res) => {
     res.status(201).json(newUser);
 });
 
-app.get('/api/users', (req, res) => {
+app.get('/users', (req, res) => {
     const data = readData();
     const { search, city, company } = req.query;
 
