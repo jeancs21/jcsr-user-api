@@ -25,6 +25,10 @@ const writeData = (data) => {
     }
 };
 
+const normalizeStr = (str) => {
+    return str ? str.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase() : "";
+};
+
 app.get('/', (req, res) => {
     res.send("Welcome")
 });
@@ -60,29 +64,35 @@ app.post('/users', (req, res) => {
 app.get('/api/users', (req, res) => {
     const data = readData();
     const { search, city, company } = req.query;
-    let filteredUsers = data.users;
 
     if (search) {
-        const searchText = search.toLowerCase();
-        filteredUsers = filteredUsers.filter(user =>
-            user.name.toLowerCase().includes(searchText) ||
-            user.email.toLowerCase().includes(searchText)
+        const searchText = normalizeStr(search);
+        const filteredUsers = data.users.filter(user =>
+            normalizeStr(user.name).includes(searchText) ||
+            normalizeStr(user.email).includes(searchText) ||
+            normalizeStr(user.company).includes(searchText) ||
+            normalizeStr(user.city).includes(searchText)
         );
+        return res.json(filteredUsers);
     }
 
     if (city) {
-        filteredUsers = filteredUsers.filter(user =>
-            user.city.toLowerCase() === city.toLowerCase()
+        const cityFilter = normalizeStr(city);
+        const filteredUsers = data.users.filter(user =>
+            normalizeStr(user.city) === cityFilter
         );
+        return res.json(filteredUsers);
     }
 
     if (company) {
-        filteredUsers = filteredUsers.filter(user =>
-            user.company.toLowerCase() === company.toLowerCase()
+        const companyFilter = normalizeStr(company);
+        const filteredUsers = data.users.filter(user =>
+            normalizeStr(user.company) === companyFilter
         );
+        return res.json(filteredUsers);
     }
 
-    res.json(filteredUsers);
+    res.json(data.users);
 });
 
 app.listen(3000, () => {
