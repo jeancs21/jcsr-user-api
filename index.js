@@ -37,31 +37,31 @@ app.get('/users', (req, res) => {
     const data = readData();
     const { search, city, company } = req.query;
 
+    let filteredUsers = data.users;
+
     if (search) {
         const searchText = normalizeStr(search);
-        const filteredUsers = data.users.filter(user =>
+        filteredUsers = filteredUsers.filter(user =>
             normalizeStr(user.name).includes(searchText) ||
             normalizeStr(user.email).includes(searchText)
         );
-        return res.json(filteredUsers);
     }
 
     if (city) {
         const cityFilter = normalizeStr(city);
-        const filteredUsers = data.users.filter(user =>
-            normalizeStr(user.city).includes(cityFilter)
+        filteredUsers = filteredUsers.filter(user =>
+            normalizeStr(user.city) === cityFilter
         );
-        return res.json(filteredUsers);
     }
 
     if (company) {
         const companyFilter = normalizeStr(company);
-        const filteredUsers = data.users.filter(user =>
-            normalizeStr(user.company).includes(companyFilter)
+        filteredUsers = filteredUsers.filter(user =>
+            normalizeStr(user.company) === companyFilter
         );
-        return res.json(filteredUsers);
     }
-    res.json(data.users);
+
+    res.json(filteredUsers);
 });
 
 app.get('/users/:id', (req, res) => {
