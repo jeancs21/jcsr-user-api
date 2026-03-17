@@ -25,13 +25,43 @@ const writeData = (data) => {
     }
 };
 
+const normalizeStr = (str) => {
+    return str ? str.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase() : "";
+};
+
 app.get('/', (req, res) => {
     res.send("Welcome")
 });
 
 app.get('/users', (req, res) => {
     const data = readData();
-    res.json(data.users);
+    const { search, city, company } = req.query;
+
+    let filteredUsers = data.users;
+
+    if (search) {
+        const searchText = normalizeStr(search);
+        filteredUsers = filteredUsers.filter(user =>
+            normalizeStr(user.name).includes(searchText) ||
+            normalizeStr(user.email).includes(searchText)
+        );
+    }
+
+    if (city) {
+        const cityFilter = normalizeStr(city);
+        filteredUsers = filteredUsers.filter(user =>
+            normalizeStr(user.city) === cityFilter
+        );
+    }
+
+    if (company) {
+        const companyFilter = normalizeStr(company);
+        filteredUsers = filteredUsers.filter(user =>
+            normalizeStr(user.company) === companyFilter
+        );
+    }
+
+    res.json(filteredUsers);
 });
 
 app.get('/users/:id', (req, res) => {
@@ -56,36 +86,6 @@ app.post('/users', (req, res) => {
     writeData(data);
     res.status(201).json(newUser);
 });
-
-app.put('/users/:id', (req, res) => {
-    const data = readData();
-    const body = req.body;
-    const id = parseInt(req.params.id);
-    const userIndex = data.users.findIndex(user => user.id === id);
-    if (userIndex !== -1) {
-        data.users[userIndex] = {
-            ...data.users[userIndex],
-            ...body
-        };
-        writeData(data);
-        res.json(data.users[userIndex]);
-    } else {
-        res.status(404).json({ message: "User not found" });
-    }
-});
-
-app.delete('/users/:id', (req, res) => {
-    const data = readData();
-    const id = parseInt(req.params.id);
-    const userIndex = data.users.findIndex(user => user.id === id);
-    if (userIndex !== -1) {
-        const deletedUser = data.users.splice(userIndex, 1);
-        writeData(data);
-        res.json(deletedUser[0]);
-    } else {
-        res.status(404).json({ message: "User not found" });
-    }
-})
 
 app.listen(3000, () => {
     console.log('Server is running on port 3000');
