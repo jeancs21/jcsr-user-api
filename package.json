@@ -2,10 +2,11 @@
   "name": "jcsr-user-api",
   "version": "1.0.0",
   "description": "user api",
-  "main": "index.js",
+  "main": "src/server.js",
   "type": "module",
   "scripts": {
-    "dev": "nodemon index.js"
+    "dev": "nodemon src/server.js",
+    "start": "node src/server.js"
   },
   "keywords": [
     "node",
