@@ -57,6 +57,34 @@ app.post('/users', (req, res) => {
     res.status(201).json(newUser);
 });
 
+app.get('/api/users', (req, res) => {
+    const data = readData();
+    const { search, city, company } = req.query;
+    let filteredUsers = data.users;
+
+    if (search) {
+        const searchText = search.toLowerCase();
+        filteredUsers = filteredUsers.filter(user =>
+            user.name.toLowerCase().includes(searchText) ||
+            user.email.toLowerCase().includes(searchText)
+        );
+    }
+
+    if (city) {
+        filteredUsers = filteredUsers.filter(user =>
+            user.city.toLowerCase() === city.toLowerCase()
+        );
+    }
+
+    if (company) {
+        filteredUsers = filteredUsers.filter(user =>
+            user.company.toLowerCase() === company.toLowerCase()
+        );
+    }
+
+    res.json(filteredUsers);
+});
+
 app.listen(3000, () => {
     console.log('Server is running on port 3000');
 });
