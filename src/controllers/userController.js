@@ -31,3 +31,31 @@ export const createUser = (req, res) => {
         res.status(500).json({ message: "Error al crear el usuario" });
     }
 };
+
+export const updateUser = (req, res) => {
+    try {
+        const id = parseInt(req.params.id);
+        const updatedUser = userService.update(id, req.body);
+        if (updatedUser) {
+            res.json(updatedUser);
+        } else {
+            res.status(404).json({ message: "User not found" });
+        }
+    } catch (error) {
+        res.status(500).json({ message: "Error al actualizar el usuario" });
+    }
+};
+
+export const deleteUser = (req, res) => {
+    try {
+        const id = parseInt(req.params.id);
+        const deleted = userService.delete(id);
+        if (deleted) {
+            res.status(204).send();
+        } else {
+            res.status(404).json({ message: "User not found" });
+        }
+    } catch (error) {
+        res.status(500).json({ message: "Error al eliminar el usuario" });
+    }
+};
