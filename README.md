@@ -2,7 +2,7 @@
 
 Esta es una API REST desarrollada con Node.js y Express para la gestión de usuarios. El proyecto utiliza un sistema de persistencia basado en un archivo JSON local y cuenta con validaciones robustas y configuración de seguridad básica.
 
-## 🚀 Características y Solución Aplicada
+## Características y Solución Aplicada
 
 Para cumplir con los requerimientos del proyecto, se implementaron las siguientes soluciones:
 
@@ -19,7 +19,7 @@ Para cumplir con los requerimientos del proyecto, se implementaron las siguiente
 3.  **Seguridad (CORS):** Se habilitó un middleware de CORS personalizado para controlar los dominios que pueden consumir la API.
 4.  **Prefijo Global:** Todas las rutas están bajo el prefijo `/api` para seguir los estándares de desarrollo de APIs.
 
-## 🛠️ Tecnologías Utilizadas
+## Tecnologías Utilizadas
 
 *   **Node.js** (Entorno de ejecución)
 *   **Express** (Framework web)
@@ -27,7 +27,7 @@ Para cumplir con los requerimientos del proyecto, se implementaron las siguiente
 *   **CORS** (Seguridad en peticiones cruzadas)
 *   **Nodemon** (Entorno de desarrollo)
 
-## 📦 Instalación y Uso
+## Instalación y Uso
 
 Requisitos previos:
 - Node.js (versión 16.x o superior)
@@ -51,22 +51,25 @@ Sigue estos pasos para poner en marcha la API localmente:
         ```bash
         npm run dev
         ```
-    *   Para producción:
-        ```bash
-        npm start
-        ```
 
 El servidor estará corriendo en: `http://localhost:3000`
 
-## 🛣️ Endpoints Principales
+## Endpoints Principales
 
-*   `GET /api/users`: Obtener todos los usuarios (admite filtros por `search`, `city` y `company`).
-*   `GET /api/users/:id`: Obtener un usuario específico por su ID.
-*   `POST /api/users`: Crear un nuevo usuario (requiere validación de esquema).
+*   `GET /api/users`: obtener todos los usuarios (admite filtros por `search`, `city` y `company`).
+*   `GET /api/users/:id`: obtener un usuario específico por su ID.
+*   `POST /api/users`: crear un nuevo usuario (requiere validación de esquema).
+*   `PATCH /api/users:id`: editar los datos de un usuario seleccionado (requiere validación de esquema).
+*   `DELETE /api/users:id`: borrar completamente un usuario seleccionado.
 
 ---
 
-## 💡 Recomendaciones para el Futuro
+## IMPORTANTE
+Alternativamente a postman, el API también puede ser consumido por medio de un aplicativo web frontend creado especificamente para este API el cual cuenta con interfaces y filtros para poder realizar operaciones CRUD de los usuarios.
+### Aplicación frontend
+https://github.com/jeancs21/jcsr-fe-user-explorer
+
+## Recomendaciones para el Futuro
 
 Para escalar esta solución y mejorar la integridad del sistema, se proponen las siguientes mejoras:
 
@@ -75,12 +78,7 @@ Para escalar esta solución y mejorar la integridad del sistema, se proponen las
     *   Asociar cada ciudad a un país para tener un control jerárquico de los datos.
     *   Esto permitiría alimentar selectores en el frontend de forma dinámica o incluso integrar APIs externas de geolocalización.
 
-2.  **Expansión del CRUD:**
-    *   Agregar endpoints `PUT/PATCH` para la edición de usuarios existentes.
-    *   Agregar un endpoint `DELETE` para la eliminación lógica o física de registros.
-    *   Esto eliminaría la necesidad de manipular el archivo `db.json` manualmente.
-
-3.  **Autenticación y Autorización (RBAC):**
+2.  **Autenticación y Autorización (RBAC):**
     *   Implementar un sistema de autenticación (ej. JWT).
     *   Establecer roles de usuario, priorizando la creación de un rol **Admin**.
     *   Restringir las operaciones sensibles (crear, editar, borrar) solo a usuarios con privilegios administrativos para asegurar la integridad de la información y reducir el margen de error humano.
