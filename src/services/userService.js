@@ -89,5 +89,17 @@ export const userService = {
         data.users[index] = updatedUser;
         writeData(data);
         return updatedUser;
+    },
+
+    delete: (id) => {
+        const data = readData();
+        const initialLength = data.users.length;
+        data.users = data.users.filter(user => user.id !== id);
+        
+        if (data.users.length < initialLength) {
+            writeData(data);
+            return true;
+        }
+        return false;
     }
 };
